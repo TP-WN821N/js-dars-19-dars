@@ -1,0 +1,25 @@
+{
+  "fruits": [
+    {
+      "id": "9e3b",
+      "name": "Olma",
+      "color": "Red",
+      "taste": "shrin",
+      "type": "shrin"
+    },
+    {
+      "id": "bffa",
+      "name": "Qulpinay",
+      "color": "red",
+      "taste": "shrin",
+      "type": "shrin"
+    },
+    {
+      "id": "96af",
+      "name": "Tarvuz",
+      "color": "red",
+      "taste": "shrin",
+      "type": "nordon"
+    }
+  ]
+}
