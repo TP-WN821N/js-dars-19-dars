@@ -6,39 +6,50 @@ let tbody = document.getElementById('tbody')
 let modal = document.getElementById('modal')
 let form = document.getElementById('form')
 let propertes = {}
-let API = "http://localhost:3000/fruits"
+let data = []
 let updateId = -1
+let current_page = 1
+let castum_per_page = 5
+let API = `http://localhost:3000/fruits?_page=${current_page}&_limit=${castum_per_page}`
 
 document.addEventListener('DOMContentLoaded', () => {
   getFruits()
   add_fruits.addEventListener('click', () => {
     toggleModal("flex")
   })
-  form.onsubmit = (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault()
-    postFruits()
+    if (updateId === -1) {
+      postFruits()
+    } else {
+      updateFruits()
+      updateId = -1
+    }
+    toggleModal("none")
+  })
+})
+window.addEventListener('click', (e) => {
+  if (e.target == modal) {
     toggleModal("none")
   }
-  window.addEventListener('click', (e) => {
-    if (e.target == modal) {
-      toggleModal("none")
-    }
-  })
 })
 
 async function getFruits() {
   try {
     let response = await fetch(API)
-    let data = await response.json()
-    displayWindow(data)
-    return data
+    data = await response.json()
+    displayWindow()
   } catch (err) {
     console.log(err);
   }
 }
-function displayWindow(data = []) {
+function displayWindow() {
+  let start_index = (current_page - 1) * castum_per_page
+  let end_index = start_index + castum_per_page
+  let users = data.slice(start_index, end_index)
+
   tbody.innerHTML = ""
-  data.forEach((item, i) => {
+  users.forEach((item, i) => {
     tbody.innerHTML += `
       <tr>
         <td class="border text-center">${i + 1}</td>
@@ -51,13 +62,31 @@ function displayWindow(data = []) {
           <button onclick="deleteFruit('${item.id}')" class="text-lg text-white bg-red-600 px-4">Delete</button>
         </td>
       </tr>
-    `
+  `
   })
+  pagination()
 }
+
+prev.addEventListener('click', () => {
+  if (current_page !== 1) {
+    current_page--;
+    getFruits()
+  }
+})
+next.addEventListener('click', () => {
+  current_page++;
+  console.log(current_page);
+  getFruits()
+})
+
+todosCount.addEventListener('change', (e) => {
+  castum_per_page = +e.target.value
+  getFruits()
+})
 
 async function deleteFruit(id) {
   try {
-    let response = fetch(`${API}/${id}`, {
+    let response = fetch(`${API.split("?")[0]}/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
@@ -69,7 +98,6 @@ async function deleteFruit(id) {
 }
 async function editeFruits(id) {
   try {
-    let data = await getFruits()
     updateId = id
     toggleModal("flex")
     data.filter(item => {
@@ -83,7 +111,20 @@ async function editeFruits(id) {
   } catch (err) {
     console.log(err);
   }
+}
 
+async function updateFruits() {
+  try {
+    let response = fetch(`${API}/${updateId}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(propertes)
+    })
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 function toggleModal(status) {
