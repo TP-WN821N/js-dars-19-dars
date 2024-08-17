@@ -1,32 +1,32 @@
 {
   "fruits": [
     {
-      "id": "9e3b",
+      "id": "c6df",
       "name": "Olma",
       "color": "Red",
-      "taste": "shrin",
-      "type": "shrin"
+      "taste": "Shrin",
+      "type": "Meva"
     },
     {
+      "id": "4bfa",
+      "name": "Nok",
+      "color": "Green",
+      "taste": "Shrin",
+      "type": "Poliz ekini"
+    },
+    {
+      "id": "0068",
+      "name": "Tarvuz",
+      "color": "Red",
+      "taste": "Shrin",
+      "type": "Poliz ekini"
+    },
+    {
+      "id": "52e9",
       "name": "Hurmo",
-      "color": "Qizg'ish",
-      "taste": "shrin",
-      "type": "shrin",
-      "id": "bffa"
-    },
-    {
-      "name": "Bana ",
-      "color": "Yello",
-      "taste": "shrin",
-      "type": "shrin",
-      "id": "96af"
-    },
-    {
-      "taste": "nordon",
-      "type": "nordon",
-      "id": "4c43",
-      "name": "Lemon",
-      "color": "Yellov"
+      "color": "Yellov",
+      "taste": "Shrin",
+      "type": "Poliz ekini"
     }
   ]
 }

@@ -21,7 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault()
     if (updateId === -1) {
       postFruits()
+      console.log(updateId);
+
     } else {
+      console.log(updateId);
       updateFruits()
       updateId = -1
     }
@@ -64,7 +67,6 @@ function displayWindow() {
       </tr>
   `
   })
-  pagination()
 }
 
 prev.addEventListener('click', () => {
@@ -115,7 +117,9 @@ async function editeFruits(id) {
 
 async function updateFruits() {
   try {
-    let response = fetch(`${API}/${updateId}`, {
+    console.log(API);
+
+    let response = fetch(`${API.split("?")[0]}/${updateId}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -148,4 +152,6 @@ async function postFruits() {
 function hendleChange(event) {
   let { name, value } = event.target
   propertes = { ...propertes, [name]: value }
+  console.log(propertes);
+
 }
